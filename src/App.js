@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
+import styled from 'styled-components';
+import WeatherBox from './WeatherBox';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import WeatherButton from './WeatherButton';
 
 //1. 앱이 실행되자마자 현재위치기반의 날씨가 보인다.
 //2. 날씨정보: 도시, 섭씨, 화씨, 날씨 상태
@@ -27,7 +31,22 @@ function App() {
   useEffect(() => {
     getCurrentLocation();
   }, []);
-  return <div className="App">TEST</div>;
+  return (
+    <div className="App">
+      <WeatherContainer>
+        <WeatherBox />
+        <WeatherButton />
+      </WeatherContainer>
+    </div>
+  );
 }
 
 export default App;
+
+const WeatherContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
