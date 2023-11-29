@@ -16,10 +16,18 @@ import ClipLoader from 'react-spinners/ClipLoader';
 
 function App() {
   const [weather, setWeather] = useState(null);
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const cities = ['paris', 'new york', 'tokyo'];
+
+  const handleCityChange = (city) => {
+    if (city === 'current') {
+      setCity(null);
+    } else {
+      setCity(city);
+    }
+  };
 
   const getCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -48,7 +56,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (city === '') {
+    if (city === null) {
       getCurrentLocation();
     } else {
       getWeatherByCity(city);
@@ -64,7 +72,7 @@ function App() {
       ) : (
         <WeatherContainer>
           <WeatherBox weather={weather} />
-          <WeatherButton cities={cities} setCity={setCity} />
+          <WeatherButton cities={cities} setCity={setCity} handleCityChange={handleCityChange} />
         </WeatherContainer>
       )}
     </div>
